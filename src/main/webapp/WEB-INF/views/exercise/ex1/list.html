@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Blogs</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+<body class="bg-light">
+<div class="container py-4">
+    <h1 class="mb-4">Danh sách Blogs</h1>
+
+    <div class="mb-3">
+        <a class="btn btn-primary" th:href="@{/exercise/ex1/blogs/create}">
+            + Viết bài mới
+        </a>
+    </div>
+
+    <div th:if="${message}" class="alert alert-success" th:text="${message}"></div>
+    <div th:if="${error}" class="alert alert-danger" th:text="${error}"></div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle">
+            <thead class="table-dark">
+            <tr>
+                <th>Tiêu đề</th>
+                <th>Tác giả</th>
+                <th>Ngày</th>
+                <th class="text-center">Hành động</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="b : ${blogs}">
+                <td th:text="${b.title}">Title</td>
+                <td th:text="${b.author}">Author</td>
+                <td th:text="${#temporals.format(b.createdAt, 'yyyy-MM-dd HH:mm')}">date</td>
+                <td class="text-center">
+                    <a class="btn btn-sm btn-info text-white" th:href="@{/exercise/ex1/blogs/{id}(id=${b.id})}">Xem</a>
+                    <a class="btn btn-sm btn-warning" th:href="@{/exercise/ex1/blogs/{id}/edit(id=${b.id})}">Sửa</a>
+                    <form th:action="@{/exercise/ex1/blogs/{id}/delete(id=${b.id})}" method="post" style="display:inline">
+                        <button class="btn btn-sm btn-danger" type="submit"
+                                onclick="return confirm('Xoá blog này?')">Xoá
+                        </button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+</body>
+</html>

@@ -9,6 +9,7 @@ import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
@@ -30,6 +31,7 @@ import java.util.Properties;
 @EnableWebMvc
 @EnableTransactionManagement
 @ComponentScan(basePackages = "org.example.demo_jpa")
+@EnableJpaRepositories(basePackages = "org.example.demo_jpa")
 public class AppConfiguration implements WebMvcConfigurer, ApplicationContextAware {
     private ApplicationContext applicationContext;
 
@@ -78,7 +80,8 @@ public class AppConfiguration implements WebMvcConfigurer, ApplicationContextAwa
         em.setDataSource(dataSource());
         em.setPackagesToScan(
                 "org.example.demo_jpa.practice.p1.model",
-                "org.example.demo_jpa.practice.p2.model"
+                "org.example.demo_jpa.practice.p2.model",
+                "org.example.demo_jpa.exercise.ex1.model"
         );
 
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
